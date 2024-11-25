@@ -53,7 +53,10 @@ async def async_setup_services(hass: HomeAssistant) -> None:
                     if coordinator is None:
                         _LOGGER.debug(f"Unknown config_id {config_id}")
                     else:
-                        timezone = get_time_zone(coordinator.data.schedule_tz)
+                        try:
+                            timezone = get_time_zone(coordinator.data.schedule_tz)
+                        except Exception:
+                            timezone = get_time_zone("Europe/London")
                         break
 
             else:
